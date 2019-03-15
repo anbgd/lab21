@@ -1,17 +1,18 @@
 #!/bin/bash
+echo "Вариант 11"
 echo "Введите имя файла для конкатенации:"
 read filename
 echo "Введите кол-во конкатенаций:"
 read num
 echo "Введите максимальную длину результирующего файла в байтах:"
 read maxsize
-filesize=$(stat -c '%s' $filename)
-calc=$(($maxsize/$filesize))
+filesize=$(stat -c '%s' $filename) #считываем размер файла в байтах (-с указывает на формат вывода ('%s'-полный размер в байтах))
+calc=$(($maxsize/$filesize)) #макс кол-во конкатенаций при данном ограничении по длине
 if [ $calc -le $num ]
 then echo "Нельзя выполнить $num конкатенаций,тк превысится max длина, можно не более $calc:"
 fi
 i=1
-while [ $i -le $calc ]
+while [ $i -le $calc ] #конкатенируем файл указанное число раз
 do
 cat $filename >>new
 (( i++ ))
